@@ -1,6 +1,5 @@
 name: CI/CD Pipeline
 
-# Запуск на події push або pull_request
 on:
   push:
     branches:
@@ -36,20 +35,19 @@ jobs:
       - name: Build Docker image
         run: docker build -t devops-practice-app .
 
-      # 6. Логін до Docker Hub за допомогою токена
-      - name: Log in to Docker Hub using access token
+      # 6. Завантаження на Docker Hub
+      - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
-      # 7. Завантажуємо образ у Docker Hub
       - name: Push Docker image to Docker Hub
         run: |
           docker tag devops-practice-app:latest ${{ secrets.DOCKER_USERNAME }}/devops-practice-app:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/devops-practice-app:latest
 
-      # 8. Розгортання на Heroku
+      # 7. Розгортання на Heroku
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.13.15
         with:
@@ -57,3 +55,24 @@ jobs:
           heroku_app_name: 'devops-practice-app'
           heroku_email: 'kivlyukyura@gmail.com'
           docker: true
+
+      # 8. AWS: Логін до Amazon ECR
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v1
+
+      # 9. Завантаження образу до Amazon ECR
+      - name: Push Docker image to Amazon ECR
+        run: |
+          IMAGE_TAG=latest
+          REPO_URI=$(aws ecr describe-repositories --repository-names devops-practice-app --region ${{ secrets.AWS_REGION }} --query 'repositories[0].repositoryUri' --output text)
+          docker tag devops-practice-app:latest $REPO_URI:$IMAGE_TAG
+          docker push $REPO_URI:$IMAGE_TAG
+
+      # 10. AWS: Розгортання в ECS
+      - name: Deploy to Amazon ECS
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ecs-task-def.json
+          service: pr4-3-service
+          cluster: pr4-3-cluster
+          wait-for-service-stability: true

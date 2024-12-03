@@ -1,0 +1,18 @@
+{
+  "family": "pr4-3-task",
+  "containerDefinitions": [
+    {
+      "name": "pr4-3-service",
+      "image": "9413-7712-6042.dkr.ecr.eu-central-1.amazonaws.com/devops-practice-app:latest",
+      "memory": 512,
+      "cpu": 256,
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 80
+        }
+      ]
+    }
+  ]
+}
