@@ -12,7 +12,7 @@ RUN npm install
 COPY . .
 
 # Відкриваємо порт, на якому працює сервер
-EXPOSE 3000
+EXPOSE 80
 
 # Команда запуску застосунку
 CMD ["node", "server.js"]
