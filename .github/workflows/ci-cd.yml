@@ -81,6 +81,6 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ecs-task-def.json
-          service: pr4-3-service-new
+          service: pr4-3-service-new-1
           cluster: pr4-3-cluster
           wait-for-service-stability: true
