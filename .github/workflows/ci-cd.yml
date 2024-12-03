@@ -56,11 +56,13 @@ jobs:
           heroku_email: 'kivlyukyura@gmail.com'
           docker: true
 
+      # Налаштування AWS регіону
+      - name: Configure AWS region
+        run: aws configure set region ${{ secrets.AWS_REGION }}
+
       # 8. AWS: Логін до Amazon ECR
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
-        with:
-          region: ${{ secrets.AWS_REGION }}
 
       # 9. Завантаження образу до Amazon ECR
       - name: Push Docker image to Amazon ECR
