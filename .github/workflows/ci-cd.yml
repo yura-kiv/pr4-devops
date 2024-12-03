@@ -84,3 +84,4 @@ jobs:
           service: pr4-3-service
           cluster: pr4-3-cluster
           wait-for-service-stability: true
+          launch-type: FARGATE

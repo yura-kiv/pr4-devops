@@ -1,16 +1,19 @@
 {
   "family": "pr4-3-task",
+  "requiresCompatibilities": ["FARGATE"],
+  "networkMode": "awsvpc",
+  "cpu": "256",
+  "memory": "512",
   "containerDefinitions": [
     {
       "name": "pr4-3-service",
       "image": "941377126042.dkr.ecr.eu-central-1.amazonaws.com/pr4-3-devops:latest",
-      "memory": 512,
-      "cpu": 256,
       "essential": true,
       "portMappings": [
         {
           "containerPort": 80,
-          "hostPort": 80
+          "hostPort": 80,
+          "protocol": "tcp"
         }
       ]
     }
