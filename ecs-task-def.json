@@ -7,7 +7,7 @@
   "executionRoleArn": "arn:aws:iam::941377126042:role/ecsTaskExecutionRole",
   "containerDefinitions": [
     {
-      "name": "pr4-3-service",
+      "name": "pr4-3-service-new",
       "image": "941377126042.dkr.ecr.eu-central-1.amazonaws.com/pr4-3-devops:latest",
       "essential": true,
       "portMappings": [
