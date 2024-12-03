@@ -1,0 +1,50 @@
+name: CI/CD Pipeline
+
+# Запуск на події push або pull_request
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Клонуємо репозиторій
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Налаштовуємо Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      # 3. Встановлюємо залежності
+      - name: Install dependencies
+        run: npm install
+
+      # 4. Запускаємо тести
+      - name: Run tests
+        run: npm test
+
+      # 5. Створюємо Docker-образ
+      - name: Build Docker image
+        run: docker build -t devops-practice-app .
+
+      # 6. Логін до Docker Hub за допомогою токена
+      - name: Log in to Docker Hub using access token
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+
+      # 7. Завантажуємо образ у Docker Hub
+      - name: Push Docker image to Docker Hub
+        run: |
+          docker tag devops-practice-app:latest ${{ secrets.DOCKER_USERNAME }}/devops-practice-app:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/devops-practice-app:latest
