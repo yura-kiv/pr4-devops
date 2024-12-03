@@ -4,7 +4,7 @@
   "networkMode": "awsvpc",
   "cpu": "256",
   "memory": "512",
-  "executionRoleArn": "arn:aws:iam::941377126042:role/ecsTaskExecutionRole",
+  "executionRoleArn": "arn:aws:iam::123456789012:role/ecsTaskExecutionRole",
   "containerDefinitions": [
     {
       "name": "pr4-3-service-new-1",
@@ -16,7 +16,15 @@
           "hostPort": 80,
           "protocol": "tcp"
         }
-      ]
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/pr4-3-service",
+          "awslogs-region": "eu-central-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
     }
   ]
 }
