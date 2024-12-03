@@ -20,7 +20,7 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/pr4-3-service",
+          "awslogs-group": "/ecs/pr4-3-service-new-1",
           "awslogs-region": "eu-central-1",
           "awslogs-stream-prefix": "ecs"
         }
