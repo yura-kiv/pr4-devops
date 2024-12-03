@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "pr4-3-service",
-      "image": "9413-7712-6042.dkr.ecr.eu-central-1.amazonaws.com/devops-practice-app:latest",
+      "image": "941377126042.dkr.ecr.eu-central-1.amazonaws.com/pr4-3-devops:latest",
       "memory": 512,
       "cpu": 256,
       "essential": true,

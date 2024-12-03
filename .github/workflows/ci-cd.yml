@@ -72,7 +72,7 @@ jobs:
       - name: Push Docker image to Amazon ECR
         run: |
           IMAGE_TAG=latest
-          REPO_URI=$(aws ecr describe-repositories --repository-names devops-practice-app --region ${{ secrets.AWS_REGION }} --query 'repositories[0].repositoryUri' --output text)
+          REPO_URI=$(aws ecr describe-repositories --repository-names pr4-3-devops --region ${{ secrets.AWS_REGION }} --query 'repositories[0].repositoryUri' --output text)
           docker tag devops-practice-app:latest $REPO_URI:$IMAGE_TAG
           docker push $REPO_URI:$IMAGE_TAG
 
