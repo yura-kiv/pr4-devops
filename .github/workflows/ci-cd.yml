@@ -56,9 +56,13 @@ jobs:
           heroku_email: 'kivlyukyura@gmail.com'
           docker: true
 
-      # Налаштування AWS регіону
-      - name: Configure AWS region
-        run: aws configure set region ${{ secrets.AWS_REGION }}
+      # Налаштування AWS облікових даних
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
       # 8. AWS: Логін до Amazon ECR
       - name: Login to Amazon ECR
